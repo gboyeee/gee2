@@ -13,7 +13,8 @@ First, create a [Gitlab Token](https://docs.gitlab.com/ee/user/profile/personal_
 a user with sufficient access to the repos you want to scan. The script
 configuration is provided via environment variables:
 ```sh
-# set environment variables (or in .bashrc)
+# set environment variables
+# (preferably in .rc or .env file to keep token out of shell history)
 export GITLAB_URL=...
 export GITLAB_TOKEN=...
 ```
@@ -33,11 +34,13 @@ To test using a locally hosted gitlab instance, a `docker-compose` configuration
 is provided:
 
 ```sh
-# start gitlab service (environment should already be set)
+# start gitlab service
 docker-compose up -d
 # login via browser/push code to create test data
 open http://localhost
 # run python-container shell with connectivity to the web service
 docker-compose run python
-#
 ```
+
+Note only the `GITLAB_TOKEN` env-var is required here as the url is defaulted in
+the docker-compose configuration.

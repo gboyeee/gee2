@@ -4,8 +4,8 @@ services:
     build: ./
     command: ['python', 'main.py']
     environment:
-      - GITLAB_URL=$GITLAB_URL
-      - GITLAB_TOKEN=$GITLAB_TOKEN
+      - GITLAB_URL=${GITLAB_URL-http://gitlab}
+      - GITLAB_TOKEN
     working_dir: /repo
     volumes:
       - ./:/repo
