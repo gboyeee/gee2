@@ -1,0 +1,27 @@
+version: '3'
+services:
+  python:
+    build: ./
+    command: ['python', 'main.py']
+    environment:
+      - GITLAB_URL=$GITLAB_URL
+      - GITLAB_TOKEN=$GITLAB_TOKEN
+    working_dir: /repo
+    volumes:
+      - ./:/repo
+      - $HOME:/root:ro
+  gitlab:
+    image: 'gitlab/gitlab-ce'
+    restart: always
+    hostname: 'gitlab'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab'
+    ports:
+      - '80:80'
+      - '443:443'
+      # - '22:22'
+    volumes:
+      - ./srv/gitlab/config:/etc/gitlab
+      - ./srv/gitlab/logs:/var/log/gitlab
+      - ./srv/gitlab/data:/var/opt/gitlab
